@@ -48,7 +48,7 @@ def REtoNFA(inputRE):
 
     #go through each char in the inputRE
     for char in inputRE:
-        if char == epsilon: continue #skip epsilons
+        if char == epsilon or char == " ": continue #skip epsilons and spaces
         #if its a symbol then make a new automaton for it.
         if char in operands:
             my_automaton = Automaton(start_state=num_of_states+1, accept_state=num_of_states+2)
@@ -112,7 +112,7 @@ def REtoNFA(inputRE):
             automaton_ab.add_transition(automaton_b.accept_state, "E", automaton_a.start_state)
 
             stack.append(automaton_ab)
-        else: return 1
+        else: return 2
 
     if len(stack) != 1: return 1
 
@@ -128,9 +128,16 @@ def convert_file_lines(file_path):
     try:
         with open(file_path, 'r') as file:
             for line_number, line in enumerate(file, start=1):
-                if REtoNFA(line.strip()) == 1: #if there was an error in the RE
-                    print("Error, malformed input on line: "+ str(line_number))
+                result = REtoNFA(line.strip())
+                if result == 1: #if there was an error in the RE
+                    print("Error, malformed input on line "+ str(line_number))
+                    print("exiting...")
                     exit(1)
+                elif result == 2:
+                    print("Error, unrecognized input on line "+ str(line_number))
+                    print("exiting...")
+                    exit(1)
+
                 
     except FileNotFoundError:
         print(f"Error: The file {file_path} was not found.")
