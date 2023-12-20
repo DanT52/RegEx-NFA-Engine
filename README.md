@@ -1,9 +1,6 @@
 ## REGEX-NFA-ENGINE
 This program converts Regular Expressions (RE) provided in postfix notation into their equivalent Non-deterministic Finite Automaton (NFA) and displays the transitions between states of the generated NFA. The program reads REs from a specified input file, where each line represents a distinct RE. It then processes each RE, generates its corresponding NFA, and outputs the start state, accept state, and transitions of the NFA.
 
-## Creator Info
-- **Name:** Daniel Basarab
-- **Email:** daniel.basarab@wsu.edu
 
 
 ### File List
